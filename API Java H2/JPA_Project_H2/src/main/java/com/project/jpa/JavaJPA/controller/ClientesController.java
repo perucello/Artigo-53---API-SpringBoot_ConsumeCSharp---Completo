@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.hibernate.internal.build.AllowSysOut;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +37,7 @@ public class ClientesController {
 		
 	@PostMapping("/add")
 	public Cliente adicionar(@Valid @RequestBody Cliente cliente) {	
+		System.out.println("Inserido registro com sucesso !");
 		return clientes.save(cliente);
 	}
 	
@@ -45,6 +47,7 @@ public class ClientesController {
 		if (clientes == null) {
 			return ResponseEntity.notFound().build();
 		}
+		System.out.println("Retornando lista Id " + id);
 		return ResponseEntity.ok(cliente);
 	}
 	
@@ -58,6 +61,7 @@ public class ClientesController {
 		}		
 		BeanUtils.copyProperties(cliente, atualizar, "id");		
 		atualizar = clientes.save(cliente);	
+		System.out.println("Registro atualizado com sucesso !!" + "ID " + id + " atualizado");
 		return ResponseEntity.ok(atualizar);
 	}
 	
@@ -67,6 +71,7 @@ public class ClientesController {
 		if(cliente != null) {
 			clientes.deleteById(id);
 		}
+		System.out.println("Cliente deletado com sucesso ! Id " + id + " deletado");
 		return ResponseEntity.noContent().build();
 	}
 	
